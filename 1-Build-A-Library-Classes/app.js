@@ -33,7 +33,7 @@ class Media {
 
   addRating(value) {
     if (value >= 1 && value <= 5) {
-    this.ratings.push(value);
+      this.ratings.push(value);
     }
   }
 }
@@ -85,14 +85,31 @@ class CD extends Media {
     return this._songs;
   }
 
-  shuffle() {
+  /*shuffle() {
     this.songs.sort((a,b) => {
       return 0.5 - Math.random();
     })
-  };
+  }; */
+
+  shuffle(arr) {
+    // Fisher-Yates Randomization Algorithm
+    const shuffledArray = (arr) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * arr.length);
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+      }
+      return shuffledArray;
+    };
+  }
 }
 
-const historyOfEverything = new Book('Bill Bryson', 'A Short History of Nearly Everything', 544);
+const historyOfEverything = new Book(
+  "Bill Bryson",
+  "A Short History of Nearly Everything",
+  544
+);
 
 historyOfEverything.toggleCheckOutStatus();
 console.log(historyOfEverything.isCheckedOut);
@@ -101,7 +118,7 @@ historyOfEverything.addRating(5);
 historyOfEverything.addRating(5);
 console.log(historyOfEverything.getAverageRating());
 
-const speed = new Movie('Jan de Bont', 'Speed', 116);
+const speed = new Movie("Jan de Bont", "Speed", 116);
 speed.toggleCheckOutStatus();
 console.log(speed.isCheckedOut);
 speed.addRating(1);
@@ -109,7 +126,13 @@ speed.addRating(1);
 speed.addRating(5);
 console.log(speed.getAverageRating());
 
-const stateOfTrance = new CD('Armin Van Buuren', 'State of Trance', ['first song', 'second song', 'third song', 'fourth song', 'fifth song']);
+const stateOfTrance = new CD("Armin Van Buuren", "State of Trance", [
+  "first song",
+  "second song",
+  "third song",
+  "fourth song",
+  "fifth song",
+]);
 stateOfTrance.shuffle();
 console.log(stateOfTrance.songs);
 
